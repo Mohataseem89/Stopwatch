@@ -1,79 +1,62 @@
-var ms = 0, s=0, m=0, h=0 
-var timer
 
 
-var display = document.querySelector('.timer-display');
-var laps = document.querySelector('.laps');
+let ms = 0, s = 0, m = 0, h = 0;
+let timer = null;
 
+const display = document.querySelector('.timer-display');
+const laps = document.querySelector('.laps');
 
-
-function start(){
-    if(!timer){
+function start() {
+    if (!timer) {
         timer = setInterval(run, 10);
     }
 }
 
-function run(){
-    display.innerHTML = getTimer()
-    ms++
-    if(ms == 100){
-        ms = 0
-        s++
-    }
-    if(s == 60){
-        s = 0
-        m++
-    }
-    if(m == 60){
-        m = 0
-        h++
-    }
+function run() {
+    ms++;
+    if (ms === 100) { ms = 0; s++; }
+    if (s === 60) { s = 0; m++; }
+    if (m === 60) { m = 0; h++; }
+
+    updateDisplay();
 }
 
-function getTimer(){
-    return (h<10 ? "0" + h : h) + ":" + (m<10 ? "0" + m : m) + ":" + (s<10 ? "0" + s : s) + ":" + (ms<10 ? "0" + ms : ms)
+function updateDisplay() {
+    display.innerText = getTimer();
 }
 
-
-
-function pause(){
-    stoptimer()
+function getTimer() {
+    return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}:${ms.toString().padStart(2, '0')}`;
 }
 
-function stoptimer(){
-    clearInterval(timer)
-    timer = false
+function pause() {
+    stopTimer();
 }
 
-
-function reset(){
-    stoptimer()
-    ms = 0
-    s = 0
-    m = 0
-    h = 0
-    display.innerHTML = getTimer()
+function stopTimer() {
+    clearInterval(timer);
+    timer = null;
 }
 
-function restart(){
-    if(timer){
-        reset()
-        start()
+function reset() {
+    stopTimer();
+    ms = s = m = h = 0;
+    updateDisplay();
+}
+
+function restart() {
+    reset();
+    start();
+}
+
+function lap() {
+    if (timer) {
+        const li = document.createElement('li');
+        li.innerText = getTimer();
+        laps.appendChild(li);
     }
 }
 
-
-
-function lap(){
-    if(timer){
-        var li = document.createElement('li')
-        li.innerText = getTimer()
-        laps.appendChild(li)
-    }
-}
-
-
-
-function resetlap(){
-    laps.innerHTML = ""
+function resetlap() {
+    laps.innerHTML = "";
 }
