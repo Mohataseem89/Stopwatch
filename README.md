@@ -1,4 +1,4 @@
-﻿# PRODIGY_WD_02
+﻿# Stopwatch
 
 
 The Web Stopwatch is a simple yet powerful digital timer built using HTML, CSS, and JavaScript. It provides an easy-to-use interface to track time accurately with millisecond precision. Whether you need a stopwatch for workouts, study sessions, or speed tests, this web-based tool is perfect for keeping track of time effortlessly.
